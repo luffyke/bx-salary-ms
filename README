@@ -1,0 +1,17 @@
+# kxt's Example GitHub project
+The project [bx-salary-ms](https://github.com/luffyke/bx-salary-ms)
+welcome to here!
+
+**Git**,you can access this repository in Windows,Linux or Mac OS X by GUI tools.
+
+## Repository URL
+Support below 3 protocols
+* HTTP protocol: 'https://github.com/luffyke/bx-salary-ms.git'
+* Git protocol: 'git://github.com/luffyke/bx-salary-ms.git'
+* SSH protocol: 'ssh://git@github.com/luffyke/bx-salary-ms.git'
+
+## Clone Repository
+$ git clone git://github.com/luffyke/bx-salary-ms.git
+
+## Project Description
+This is beyondx salary management system, it provides salary history, tax calculation, insurance calculation and work experience functions.
