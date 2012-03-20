@@ -10,10 +10,25 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2012-03-19 00:48:57
+Date: 2012-03-20 22:16:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `company`
+-- ----------------------------
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE `company` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(30) NOT NULL,
+  `company_type` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of company
+-- ----------------------------
+
 -- ----------------------------
 -- Table structure for `company_ins_rate`
 -- ----------------------------
@@ -25,8 +40,8 @@ CREATE TABLE `company_ins_rate` (
   PRIMARY KEY (`id`),
   KEY `fk_company_ins_rate_company_id` (`company_id`),
   KEY `fk_company_ins_rate_ins_rate_id` (`ins_rate_id`),
-  CONSTRAINT `fk_company_ins_rate_ins_rate_id` FOREIGN KEY (`ins_rate_id`) REFERENCES `insurance_rate` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_company_ins_rate_company_id` FOREIGN KEY (`company_id`) REFERENCES `work_experience` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `fk_company_ins_rate_company_id` FOREIGN KEY (`company_id`) REFERENCES `work_experience` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_company_ins_rate_ins_rate_id` FOREIGN KEY (`ins_rate_id`) REFERENCES `insurance_rate` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -244,12 +259,15 @@ DROP TABLE IF EXISTS `work_experience`;
 CREATE TABLE `work_experience` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `user_id` int(5) NOT NULL,
-  `company_name` varchar(30) NOT NULL,
-  `company_type` tinyint(1) NOT NULL,
+  `company_id` int(5) NOT NULL,
+  `team_name` varchar(30) NOT NULL,
+  `sub_team_name` varchar(30) DEFAULT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_work_experience_user_id` (`user_id`),
+  KEY `fk_work_experience_company_id` (`company_id`),
+  CONSTRAINT `fk_work_experience_company_id` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_work_experience_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
