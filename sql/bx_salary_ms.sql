@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2012-03-20 22:16:43
+Date: 2012-04-04 17:54:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -76,12 +76,6 @@ CREATE TABLE `insurance` (
 -- ----------------------------
 -- Records of insurance
 -- ----------------------------
-INSERT INTO insurance VALUES ('1', 'housing_found');
-INSERT INTO insurance VALUES ('2', 'pension_insurance');
-INSERT INTO insurance VALUES ('3', 'medical_insurance');
-INSERT INTO insurance VALUES ('4', 'unemployment_insurance');
-INSERT INTO insurance VALUES ('5', 'injury_insurance');
-INSERT INTO insurance VALUES ('6', 'maternity_insurance');
 
 -- ----------------------------
 -- Table structure for `insurance_amount`
@@ -204,9 +198,8 @@ CREATE TABLE `tax_calculation` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) DEFAULT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `permission` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -239,10 +232,12 @@ DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `user_id` int(5) NOT NULL,
+  `email` varchar(64) DEFAULT NULL,
   `first_name` varchar(20) DEFAULT NULL,
   `last_name` varchar(20) DEFAULT NULL,
-  `birthday` date DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
+  `nickname` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_profile_user_id` (`user_id`),
   CONSTRAINT `fk_user_profile_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
