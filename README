@@ -1,4 +1,4 @@
-# kxt's Example GitHub project
+# Beyondx Salary Management System GitHub project
 The project [bx-salary-ms](https://github.com/luffyke/bx-salary-ms)
 welcome to here!
 
@@ -15,3 +15,17 @@ $ git clone git://github.com/luffyke/bx-salary-ms.git
 
 ## Project Description
 This is beyondx salary management system, it provides salary history, tax calculation, insurance calculation and work experience functions.
+
+Development Language : PHP
+Framework : CodeIgniter
+Database : Mysql
+HTTP Server : Apache
+
+## Folders Description
+\application
+	\controllers - CI Controllers
+	\views - Page Views
+	\models - Object Models
+\js	- javascript
+\css - css file
+\sql - sql script
