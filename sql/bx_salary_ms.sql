@@ -1,18 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : kxt
-Source Server Version : 50516
-Source Host           : localhost:3306
-Source Database       : bx_salary_ms
-
-Target Server Type    : MYSQL
-Target Server Version : 50516
-File Encoding         : 65001
-
-Date: 2012-04-04 17:54:50
-*/
-
 SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for `company`
@@ -198,7 +183,8 @@ CREATE TABLE `tax_calculation` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `email` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
   `permission` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
@@ -232,7 +218,6 @@ DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `user_id` int(5) NOT NULL,
-  `email` varchar(64) DEFAULT NULL,
   `first_name` varchar(20) DEFAULT NULL,
   `last_name` varchar(20) DEFAULT NULL,
   `birthdate` date DEFAULT NULL,
