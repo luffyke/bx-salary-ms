@@ -58,7 +58,7 @@ html {
 	border-radius: 20px;
 	box-shadow: inset rgba(255, 255, 255, 0.6) 0 1px 1px, rgba(0, 0, 0, 0.1)
 		0 1px 1px;
-	color: #FFF;
+	color: #AAA;
 	cursor: pointer;
 	float: right;
 	font: bold 13px Arial;
@@ -69,7 +69,7 @@ html {
 	background-image: -moz-linear-gradient(to top, #B5DEF2, #85CFEE);
 }
 
-.login_box a.forget_password {
+.login_box a {
 	color: #ABABAB;
 	cursor: pointer;
 	float: right;
@@ -78,14 +78,14 @@ html {
 	vertical-align: middle;
 }
 
-.login_box a.forget_password:HOVER {
+.login_box a:HOVER {
 	text-decoration: underline;
 }
 
-.login_box input#remember {
+.login_box input {
 	vertical-align: middle;
 }
 
-.login_box label[for="remember"] {
+.login_box label {
 	font: 11px Arial;
 }
