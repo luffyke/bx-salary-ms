@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+#pager{
+	width:450px; 
+	margin:20px auto; 
+	height:40px; 
+	line-height:20px;
+	font-size: 13px;
+}
+#pager span{
+	display:block; 
+	float:left; 
+	height:20px; 
+	line-height:20px; 
+	margin:2px; 
+	padding:0 8px; 
+	border:1px solid #d3d3d3; 
+	background:#f7f7f7
+}
+#pager span a.selected {
+	color:red;
+	font-weight:bold
+}

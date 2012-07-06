@@ -1,9 +1,15 @@
+@CHARSET "UTF-8";
 html {
 	background-color: #E9EEF0
 }
 
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+	margin: 0;
+	padding: 0;
+}
+
 .wrapper {
-	margin: 140px auto;
+	margin: 100px auto;
 	width: 884px;
 }
 
@@ -79,7 +85,8 @@ html {
 }
 
 .login_box a:HOVER {
-	text-decoration: underline;
+	text-decoration: none;
+	color : #000;
 }
 
 .login_box input {
@@ -88,4 +95,9 @@ html {
 
 .login_box label {
 	font: 11px Arial;
+}
+
+.error_message {
+	color : RED;
+	font : 14px 'Consolas';
 }

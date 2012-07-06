@@ -5,10 +5,14 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `company`;
 CREATE TABLE `company` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `company_name` varchar(30) NOT NULL,
-  `company_type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `user_id` int(5) NOT NULL,
+  `company_name` varchar(64) NOT NULL,
+  `abbr_name` varchar(64) DEFAULT NULL,
+  `company_type` int(1) NOT NULL COMMENT '1 - Private enterprise, 2 - State-owned enterprises, 3 - Foreign company',
+  PRIMARY KEY (`id`),
+  KEY `fk_company_user_id` (`user_id`),
+  CONSTRAINT `fk_company_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of company
@@ -23,29 +27,14 @@ CREATE TABLE `company_ins_rate` (
   `company_id` int(5) NOT NULL,
   `ins_rate_id` int(5) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_company_ins_rate_company_id` (`company_id`),
-  KEY `fk_company_ins_rate_ins_rate_id` (`ins_rate_id`),
-  CONSTRAINT `fk_company_ins_rate_company_id` FOREIGN KEY (`company_id`) REFERENCES `work_experience` (`id`) ON UPDATE CASCADE,
+  KEY `fk_company_ins_rate_company_id` (`company_id`) USING BTREE,
+  KEY `fk_company_ins_rate_ins_rate_id` (`ins_rate_id`) USING BTREE,
+  CONSTRAINT `fk_company_ins_rate_company_id` FOREIGN KEY (`company_id`) REFERENCES `work` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_company_ins_rate_ins_rate_id` FOREIGN KEY (`ins_rate_id`) REFERENCES `insurance_rate` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of company_ins_rate
--- ----------------------------
-
--- ----------------------------
--- Table structure for `constant`
--- ----------------------------
-DROP TABLE IF EXISTS `constant`;
-CREATE TABLE `constant` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  `value` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of constant
 -- ----------------------------
 
 -- ----------------------------
@@ -53,33 +42,18 @@ CREATE TABLE `constant` (
 -- ----------------------------
 DROP TABLE IF EXISTS `insurance`;
 CREATE TABLE `insurance` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `salary_id` int(10) NOT NULL,
+  `insurance_type` int(5) NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_insurance_amount_insurance_id` (`insurance_type`) USING BTREE,
+  KEY `fk_insurance_amount_salary_id` (`salary_id`) USING BTREE,
+  CONSTRAINT `fk_insurance_salary_id` FOREIGN KEY (`salary_id`) REFERENCES `salary` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of insurance
--- ----------------------------
-
--- ----------------------------
--- Table structure for `insurance_amount`
--- ----------------------------
-DROP TABLE IF EXISTS `insurance_amount`;
-CREATE TABLE `insurance_amount` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `salary_id` int(10) NOT NULL,
-  `insurance_id` int(5) NOT NULL,
-  `amount` decimal(8,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_insurance_amount_insurance_id` (`insurance_id`),
-  KEY `fk_insurance_amount_salary_id` (`salary_id`),
-  CONSTRAINT `fk_insurance_amount_insurance_id` FOREIGN KEY (`insurance_id`) REFERENCES `insurance` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_insurance_amount_salary_id` FOREIGN KEY (`salary_id`) REFERENCES `salary` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of insurance_amount
 -- ----------------------------
 
 -- ----------------------------
@@ -88,13 +62,11 @@ CREATE TABLE `insurance_amount` (
 DROP TABLE IF EXISTS `insurance_rate`;
 CREATE TABLE `insurance_rate` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `insurance_id` int(5) NOT NULL,
-  `type` tinyint(1) NOT NULL COMMENT '1 for Company, 2 for Employee',
+  `insurance_type` int(1) NOT NULL,
+  `target` int(1) NOT NULL COMMENT '1 for Company, 2 for Employee',
   `rate` decimal(6,3) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_insurance_rate_insurance_id` (`insurance_id`),
-  CONSTRAINT `fk_insurance_rate_insurance_id` FOREIGN KEY (`insurance_id`) REFERENCES `insurance` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of insurance_rate
@@ -116,9 +88,9 @@ CREATE TABLE `salary` (
   `insurance_indicator` varchar(20) NOT NULL,
   `payment_date` date NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_salary_company_id` (`company_id`),
-  CONSTRAINT `fk_salary_company_id` FOREIGN KEY (`company_id`) REFERENCES `work_experience` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_salary_company_id` (`company_id`) USING BTREE,
+  CONSTRAINT `fk_salary_company_id` FOREIGN KEY (`company_id`) REFERENCES `work` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of salary
@@ -135,9 +107,9 @@ CREATE TABLE `salary_history` (
   `allowance` decimal(8,2) DEFAULT NULL,
   `change_date` date NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_salary_history_company_id` (`company_id`),
-  CONSTRAINT `fk_salary_history_company_id` FOREIGN KEY (`company_id`) REFERENCES `work_experience` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_salary_history_company_id` (`company_id`) USING BTREE,
+  CONSTRAINT `fk_salary_history_company_id` FOREIGN KEY (`company_id`) REFERENCES `work` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of salary_history
@@ -152,7 +124,7 @@ CREATE TABLE `tax_basic` (
   `basic_amount` int(10) NOT NULL,
   `effective_date` date NOT NULL,
   PRIMARY KEY (`sequence`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tax_basic
@@ -168,10 +140,11 @@ CREATE TABLE `tax_calculation` (
   `min_amount` int(10) NOT NULL,
   `max_amount` int(10) NOT NULL,
   `rate` decimal(6,3) NOT NULL,
+  `base_amount` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_tax_calculation_sequence` (`sequence`),
+  KEY `fk_tax_calculation_sequence` (`sequence`) USING BTREE,
   CONSTRAINT `fk_tax_calculation_sequence` FOREIGN KEY (`sequence`) REFERENCES `tax_basic` (`sequence`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tax_calculation
@@ -186,29 +159,30 @@ CREATE TABLE `user` (
   `username` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `permission` tinyint(1) NOT NULL,
+  `create_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `user_login`
+-- Table structure for `user_log`
 -- ----------------------------
-DROP TABLE IF EXISTS `user_login`;
-CREATE TABLE `user_login` (
+DROP TABLE IF EXISTS `user_log`;
+CREATE TABLE `user_log` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(5) NOT NULL,
-  `login_date` datetime NOT NULL,
+  `log_type` int(10) NOT NULL,
+  `log_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_user_login_user_id` (`user_id`),
-  CONSTRAINT `fk_user_login_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_user_log_user_id` (`user_id`) USING BTREE,
+  CONSTRAINT `fk_user_log_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of user_login
+-- Records of user_log
 -- ----------------------------
 
 -- ----------------------------
@@ -221,36 +195,41 @@ CREATE TABLE `user_profile` (
   `first_name` varchar(20) DEFAULT NULL,
   `last_name` varchar(20) DEFAULT NULL,
   `birthdate` date DEFAULT NULL,
-  `gender` tinyint(1) DEFAULT NULL,
-  `nickname` varchar(64) DEFAULT NULL,
+  `gender` int(1) DEFAULT NULL,
+  `province` varchar(64) DEFAULT NULL,
+  `city` varchar(64) DEFAULT NULL,
+  `county` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_user_profile_user_id` (`user_id`),
+  KEY `fk_user_profile_user_id` (`user_id`) USING BTREE,
   CONSTRAINT `fk_user_profile_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_profile
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `work_experience`
+-- Table structure for `work`
 -- ----------------------------
-DROP TABLE IF EXISTS `work_experience`;
-CREATE TABLE `work_experience` (
+DROP TABLE IF EXISTS `work`;
+CREATE TABLE `work` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `user_id` int(5) NOT NULL,
   `company_id` int(5) NOT NULL,
+  `staff_id` int(10) NOT NULL,
   `team_name` varchar(30) NOT NULL,
   `sub_team_name` varchar(30) DEFAULT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
+  `from_date` date NOT NULL,
+  `to_date` date NOT NULL,
+  `work_nature` int(1) NOT NULL,
+  `is_current` int(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_work_experience_user_id` (`user_id`),
-  KEY `fk_work_experience_company_id` (`company_id`),
-  CONSTRAINT `fk_work_experience_company_id` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_work_experience_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_work_user_id` (`user_id`) USING BTREE,
+  KEY `fk_work_company_id` (`company_id`) USING BTREE,
+  CONSTRAINT `fk_work_company_id` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_work_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of work_experience
+-- Records of work
 -- ----------------------------
