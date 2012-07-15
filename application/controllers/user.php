@@ -8,41 +8,54 @@ class User extends CI_Controller {
 		$this->load->library('encrypt');
 	}
 	
-	function index(){
+	function index() {
 		$this->login();
 	}
 	
 	function login() {
-		$this->load->view('login_view');
+		if($this->input->cookie('remember_me')) {
+			$user_id = $this->session->userdata('user_id');
+			if(empty($user_id)) {
+				$this->load->view('login_view');
+			} else {
+				$data['action'] = 'main';
+				$this->load->view('main_view', $data);
+			}
+		} else {
+			$this->load->view('login_view');
+		}
 	}
 	
-	function login_action(){
+	function login_action() {
 		// get username and password from post data
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		if(!$this->is_sha1($password)){
+		if(!$this->is_sha1($password)) {
 			// sha1 the password for validation
 			$password = $this->sha1_password($password);
 		}
 		// validation
 		$user_result = $this->user_model->get_by_username_and_password($username, $password);
-		if($user_result->num_rows() > 0){
+		if($user_result->num_rows() > 0) {
 			// log user login
 			$user_id = $user_result->row()->id;
 			$this->load->model('user_log_model');
 			$this->user_log_model->insert_user_log($user_id, $this->user_log_model->login);
-			// put userid in session
+			
+			// session user id and username
 			$session_data = array('user_id' => $user_id, 'username' => $username);
 			$this->session->set_userdata($session_data);
+			
 			// cookie the username and password
-			$is_keep_login = $this->input->post('keep_login');
-			if($is_keep_login){
+			$remember_me = $this->input->post('remember_me');
+			if($remember_me) {
 				$expire_time = 86500;
-				$this->input->set_cookie('username', $username, $expire_time);
-				$this->input->set_cookie('password', $password, $expire_time);
-				$this->input->set_cookie('keep_login', TRUE, $expire_time);
+				//$this->input->set_cookie('username', $username, $expire_time);
+				//$this->input->set_cookie('password', $password, $expire_time);
+				$this->input->set_cookie('remember_me', TRUE, $expire_time);
 			} else {
-				delete_cookie('keep_login');
+				// delete cookie
+				delete_cookie('remember_me');
 			}
 			// go to main page
 			//$this->load->view('main_view');
@@ -60,7 +73,7 @@ class User extends CI_Controller {
 		$this->load->view('register_view');
 	}
 	
-	function register_action(){
+	function register_action() {
 		// get username and password from post data
 		$username = $this->input->post('username');
 		$email = $this->input->post('email');
@@ -87,7 +100,7 @@ class User extends CI_Controller {
 		// complete transaction
 		$this->db->trans_complete();
 		
-		if ($this->db->trans_status() === FALSE){
+		if ($this->db->trans_status() === FALSE) {
 			log_message('error', 'Register error');
 		} else {
 			// redirect to login page
@@ -96,20 +109,20 @@ class User extends CI_Controller {
 		}
 	}
 	
-	function logout(){
+	function logout() {
 		$session_data = array('user_id' => '', 'username' => '');
 		$this->session->unset_userdata($session_data);
 		//$this->load->view('login_view');
 		redirect('/user/login');
 	}
 	
-	function ajax_check_username(){
+	function ajax_check_username() {
 		$username = $this->input->post('username');
 		$is_exist = $this->user_model->is_username_exist($username);
 		echo $is_exist;
 	}
 	
-	function ajax_check_password(){
+	function ajax_check_password() {
 		$old_password = $this->input->post('old_password');
 		$user_id = $this->session->userdata('user_id');
 		
@@ -118,12 +131,12 @@ class User extends CI_Controller {
 		echo $this->sha1_password($old_password) === $password;
 	}
 	
-	function change_password(){
+	function change_password() {
 		$data['action'] = 'change_password';
 		$this->load->view('main_view', $data);
 	}
 	
-	function change_password_action(){
+	function change_password_action() {
 
 		// begin transaction
 		$this->db->trans_start();
@@ -148,15 +161,15 @@ class User extends CI_Controller {
 		}
 	}
 	
-	function forget_password(){
+	function forget_password() {
 		
 	}
 	
-	function send_password_mail(){
+	function send_password_mail() {
 		
 	}
 	
-	private function sha1_password($password){
+	private function sha1_password($password) {
 		return $this->encrypt->sha1($password);
 	}
 	
