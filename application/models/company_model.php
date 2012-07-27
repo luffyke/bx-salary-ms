@@ -9,6 +9,7 @@ class Company_model extends CI_Model {
 	private $work_table_name = 'work';
 	
 	// table field name
+	private $id = 'id';
 	private $user_id = 'user_id';
 	private $company_name = 'company_name';
 	private $abbr_name = 'abbr_name';
@@ -19,11 +20,18 @@ class Company_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	/*
+	 * @sql = select * from company where user_id = @user_id
+	 */
 	function get_by_userid($user_id){
 		$result = $this->db->get_where($this->table_name, array($this->user_id=>$user_id));
 		return $result;
 	}
 	
+	/*
+	 * @sql = insert into company(user_id, company_name, abbr_name, company_type) 
+	 		value(@user_id, @company_name, @abbr_name, @company_type)
+	 */
 	function insert_company($user_id, $company_name='', $abbr_name='', $company_type=''){
 		$company_data = array($this->user_id=>$user_id, $this->company_name=>$company_name, 
 				$this->abbr_name=>$abbr_name, $this->company_type=>$company_type);
@@ -35,7 +43,12 @@ class Company_model extends CI_Model {
 		}
 	}
 	
+	/*
+	 * @sql = select company.id, company_name, abbr_name, company_type from company left join work on work.company_id = company.id
+	 *		and work.user_id = company.user_id where company.user_id = @user_id and work.is_current = @is_current
+	 */
 	function get_by_userid_and_work_status($user_id, $is_current=0){
+		$this->db->select($this->table_name.'.'.$this->id);
 		$this->db->select($this->company_name);
 		$this->db->select($this->abbr_name);
 		$this->db->select($this->company_type);

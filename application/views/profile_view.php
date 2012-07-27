@@ -9,6 +9,16 @@
 	$month = substr($birthdate, 5, 2);
 	$day = substr($birthdate, 8, 2);
 	
+	// calculate age
+	$now = date_create("now");
+	$birth = date_create($birthdate);
+	if($now < $birth){
+		$age = '你还没出生呢';
+	} else {
+		$interval = date_diff($now, $birth);
+		$age = $interval->format('%y').'岁';
+	}
+	
 	$province = $profile['province'];
 	$city = $profile['city'];
 	$county = $profile['county'];
@@ -44,7 +54,7 @@ $(document).ready(function(){
 	<table>
 		<tbody>
 			<tr><th>注册时间:</th><td><? echo $create_date ?></td></tr>
-			<tr><th>用户名:</th><td><? echo $username ?></td></tr>
+			<tr><th>用户名:</th><td><? echo $username ?> (<?php echo $age;?>)</td></tr>
 			<tr>
 				<th>姓名:</th>
 				<td>

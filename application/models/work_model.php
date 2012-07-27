@@ -24,16 +24,26 @@ class Work_model extends CI_Model {
 		$this->load->helper('date');
 	}
 	
+	/*
+	 * @sql = select * from work where user_id = @user_id
+	 */
 	function get_by_userid($user_id){
 		$result = $this->db->get_where($this->table_name, array($this->user_id=>$user_id));
 		return $result;
 	}
 	
+	/*
+	 * @sql = select * from work where user_id = @user_id and is_current = @is_current
+	 */
 	function get_by_userid_and_work_status($user_id, $is_current=0){
 		$result = $this->db->get_where($this->table_name, array($this->user_id=>$user_id, $this->is_current=>$is_current));
 		return $result;
 	}
 	
+	/*
+	 * @sql = insert into work(user_id, company_id, staff_id, team_name, sub_name, from_date, to_date, work_nature, is_current)
+	 * 		value(@user_id, @company_id, @staff_id, @team_name, @sub_name, @from_date, @to_date, @work_nature, @is_current)
+	 */
 	function insert_work($user_id, $company_id, $staff_id, $team_name='', $sub_team_name='', $from_date, $to_date, 
 			$work_nature, $is_current){
 		$work_data = array($this->user_id => $user_id, $this->company_id => $company_id, $this->staff_id => $staff_id, 

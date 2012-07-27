@@ -24,17 +24,26 @@ class User_log_model extends CI_Model{
 		$this->load->helper('date');
 	}
 	
+	/*
+	 * @sql = insert into user_log(user_id, log_type, log_date) value(@user_id, @log_type, now())
+	 */
 	function insert_user_log($user_id, $log_type) {
 		$user_log_data = array($this->user_id=>$user_id, $this->log_type=>$log_type, $this->log_date=>mdate('%Y-%m-%d %H:%i:%s', now()));
 		$this->db->insert($this->table_name, $user_log_data);
 	}
 	
+	/*
+	 * @sql = select count(*) from user_log where user_id = @user_id
+	 */
 	function count_result_by_userid($user_id){
 		$this->db->where($this->user_id, $user_id);
 		$this->db->from($this->table_name);
 		return $this->db->count_all_results();
 	}
 	
+	/*
+	 * @sql = select * from user_log where user_id = @user_id limit @offset, @limit
+	 */
 	function find_by_page($user_id, $page_number, $limit=15, $offset=1){
 		$result = $this->db->get_where($this->table_name, array($this->user_id=>$user_id), $limit, $offset);
 		return $result;
