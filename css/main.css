@@ -129,7 +129,7 @@ strong {
 .content .table_info {
 	border: 1px solid blue;
 	text-align : center;
-	width : 80%;
+	width : 90%;
 	margin-top : 10px;
 	margin-left : 10px;
 	font-size : 12px;
@@ -138,7 +138,7 @@ strong {
 .content .history_table_info {
 	border: 1px solid red;
 	text-align : center;
-	width : 80%;
+	width : 90%;
 	margin-top : 10px;
 	margin-left : 10px;
 	font-size : 12px;
@@ -207,7 +207,8 @@ strong {
 }
 
 .error_message {
-	margin : 0 5px;
+	margin : 0 10px;
+	padding : 0 10px;
 	color : RED;
 	font : 13px 'Consolas';
 }

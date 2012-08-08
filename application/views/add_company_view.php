@@ -7,7 +7,8 @@
 		<tbody>
 			<tr>
 				<th><span class="required">*</span>公司名称:</th>
-				<td><input type="text" id="company_name" name="company_name" /></td><td class="error_message" id="company_name_message"></td>
+				<td><input type="text" id="company_name" name="company_name" />
+				<span class="error_message" id="company_name_message"></span></td>
 			</tr>
 			<tr>
 				<th>公司简称:</th>

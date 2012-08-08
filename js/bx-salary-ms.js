@@ -61,7 +61,7 @@ function add_company(){
 	var company_type = $('#company_type').val();
 	
 	$.post('/bx-salary-ms/company/add_action',
-			{'company_name':company_name, 'abbr_name':abbr_name,'company_type':company_type},
+			{'company_name':company_name, 'abbr_name':abbr_name, 'company_type':company_type},
 			function(result){
 				if(result != 1){
 					$('#add_company_link').after('<span id="add_company_message" class="error_message">添加失败</span>');
@@ -201,5 +201,41 @@ function add_work(){
 				$('#add_work_link').after('<span id="add_work_message" class="message">添加成功</span>');
 			}
 		}
+	);
+}
+
+function delete_company(){
+	
+}
+
+function edit_company() {
+	
+	$('#edit_company_message').replaceWith('');
+	
+	var id = $('#company_id').val();
+	var company_name = $('#company_name').val();
+	if(company_name == "" || $.trim(company_name) == ""){
+		$('#company_name_message').text('公司名称不能为空');
+		return;
+	}
+	
+	var abbr_name = $('#abbr_name').val();
+	var company_type = $('#company_type').val();
+	
+	var name = $('#abbr_name').attr('type');
+	alert(name);
+	
+	return;
+	
+	$.post('/bx-salary-ms/company/edit_action',
+			{'id': id, 'company_name':company_name, 'abbr_name':abbr_name, 'company_type':company_type},
+			function(result){
+				if(result != 1){
+					$('#edit_company_link').after('<span id="edit_company_message" class="error_message">修改失败</span>');
+				} else {
+					$('#company_name_message').text('');
+					$('#edit_company_link').after('<span id="edit_company_message" class="message">修改成功</span>');
+				}
+			}
 	);
 }

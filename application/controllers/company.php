@@ -47,6 +47,36 @@ class Company extends CI_Controller {
 			echo 0;
 		}
 	}
+	
+	function edit($id) {
+		$company_result = $this->company_model->get_by_id($id);
+		
+		$data['action'] = 'edit_company';
+		$data['company_result'] = $company_result;
+		$this->load->view('main_view', $data);
+	}
+	
+	function edit_action() {
+		$id = $this->input->post('id');
+		$company_name = $this->input->post('company_name');
+		$abbr_name = $this->input->post('abbr_name');
+		$company_type = $this->input->post('company_type');
+		
+		// compare with the original record in db
+		$company_result = $this->company_model->get_by_id($id);
+		$row = $company_result->first_row();
+		if($company_name == $row->company_name && $abbr_name == $row->abbr_name && $company_type == $row->company_type) {
+			echo 1;
+			return;
+		}
+		
+		$is_edit_successful = $this->company_model->update_company($id, $company_name, $abbr_name, $company_type);
+		if($is_edit_successful){
+			echo 1;
+		} else {
+			echo 0;
+		}
+	}
 }
 
 /* End of file company.php */

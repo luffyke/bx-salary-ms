@@ -274,6 +274,13 @@ class CI_Session {
 			}
 		}
 	}
+	
+	// Add by kxt start
+	function all_userdata()
+	{
+		return $_SESSION;
+	}
+	// Add by kxt end
 }
 // END Native Session Class
 

@@ -87,16 +87,9 @@
 							$this->load->view('salary_view');
 							break;
 						case 'work':
-							$data['has_work'] = $has_work;
-							if($has_work) :
-								$data['history_work_result'] = $history_work_result;
-								$data['current_work_result'] = $current_work_result;
-							endif;
 							$this->load->view('work_view');
 							break;
 						case 'company':
-							$data['history_company_result'] = $history_company_result;
-							$data['current_company_result'] = $current_company_result;
 							$this->load->view('company_view');
 							break;
 						case 'user_log':
@@ -106,14 +99,13 @@
 							$this->load->view('change_password_view');
 							break;
 						case 'add_work':
-							if($has_company) :
-								$data['company_result'] = $company_result;
-							endif;
 							$this->load->view('add_work_view');
 							break;
 						case 'add_company':
-							$data['has_company'] = $has_company;
-							$this->load->view('add_company_view', $data);
+							$this->load->view('add_company_view');
+							break;
+						case 'edit_company' :
+							$this->load->view('edit_company_view');
 							break;
 						default:
 							#main

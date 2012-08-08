@@ -60,6 +60,33 @@ class Company_model extends CI_Model {
 		$current_company_result = $this->db->get();
 		return $current_company_result;
 	}
+	
+	/*
+	* @sql = select id, company_name, abbr_name, company_type from company where id = @id;
+	*/
+	function get_by_id($id) {
+		$this->db->select($this->id);
+		$this->db->select($this->company_name);
+		$this->db->select($this->abbr_name);
+		$this->db->select($this->company_type);
+		$company_result = $this->db->get_where($this->table_name, array($this->id => $id));
+		return $company_result;
+	}
+	
+	/*
+	 * @sql = update company set company_name=@company_name, abbr_name=@abbr_name, company_type=@company_type
+	 *  	where id = @id 
+	 */
+	function update_company($id, $company_name, $abbr_name, $company_type) {
+		$data = array('company_name' => $company_name, 'abbr_name' => $abbr_name, 'company_type' => $company_type);
+		$this->db->where('id', $id);
+		$this->db->update($this->table_name, $data);
+		if($this->db->affected_rows() == 1){
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file company_model.php */
