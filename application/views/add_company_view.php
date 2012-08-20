@@ -2,7 +2,11 @@
 <div class="tip">当前无任何关于您的公司信息，请先添加公司信息</div>
 <?php } ?>
 <div class="profile">
-	<div class="title">添加公司信息<span class="required_remind"><span class="required">*</span>为必填项</span></div>
+	<div class="title">
+		添加公司信息
+		<a href="<?php echo PROJECT_ROOT_URL.'/company'?>" class="button" style="margin: 0 0 0 10px">返回公司信息</a>
+		<span class="required_remind"><span class="required">*</span>为必填项</span>
+	</div>
 	<table>
 		<tbody>
 			<tr>

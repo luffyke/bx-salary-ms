@@ -222,15 +222,10 @@ function edit_company() {
 	var abbr_name = $('#abbr_name').val();
 	var company_type = $('#company_type').val();
 	
-	var name = $('#abbr_name').attr('type');
-	alert(name);
-	
-	return;
-	
 	$.post('/bx-salary-ms/company/edit_action',
 			{'id': id, 'company_name':company_name, 'abbr_name':abbr_name, 'company_type':company_type},
 			function(result){
-				if(result != 1){
+				if(result != 1) {
 					$('#edit_company_link').after('<span id="edit_company_message" class="error_message">修改失败</span>');
 				} else {
 					$('#company_name_message').text('');

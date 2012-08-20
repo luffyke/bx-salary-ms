@@ -68,7 +68,7 @@ strong {
 .top_area_logo {
 	float : left;
 	width : 80px;
-	margin : 10px 0 0 15px;
+	margin : 8px 0 0 15px;
 }
 
 .top_area_title {
@@ -126,6 +126,10 @@ strong {
 	margin: 100px 0;
 }
 
+.content .company_history_only {
+	margin: 10px 0;
+}
+
 .content .table_info {
 	border: 1px solid blue;
 	text-align : center;
@@ -144,12 +148,16 @@ strong {
 	font-size : 12px;
 }
 
-.content .table_info  tr td{
+.content .table_info  tr td {
 	border: 1px solid blue;
 }
 
-.content .history_table_info  tr td{
+.content .history_table_info  tr td {
 	border: 1px solid red;
+}
+
+.content .table_tr {
+	background-color : #EAEAEA;
 }
 
 .content_box .user_log {
@@ -240,4 +248,10 @@ strong {
 .required {
 	color : RED;
 	margin : 0 2px 0 0;
+}
+
+.show_more {
+	float : right;
+	font-size : 12px;
+	margin : 10px 10px 0 0;
 }

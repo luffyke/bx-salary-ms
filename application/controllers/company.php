@@ -4,6 +4,7 @@ class Company extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('company_model');
+		define('PER_PAGE_RECORD', 5);
 		//$this->output->enable_profiler(TRUE);		// for testing
 	}
 	
@@ -20,6 +21,68 @@ class Company extends CI_Controller {
 		$this->load->view('main_view', $data);
 	}
 	
+	function current($page_number=1) {
+		$user_id = $this->session->userdata('user_id');
+	
+		// get current company count
+		$current_company_result_for_count = $this->company_model->get_by_userid_and_work_status($user_id, 1);
+		$count_record = $current_company_result_for_count->num_rows();
+	
+		$page_count = ceil($count_record / PER_PAGE_RECORD);
+		if($page_number > $page_count){
+			$page_number = $page_count;
+		}
+		// count offset
+		if($page_number > 1){
+			$offset = PER_PAGE_RECORD * ($page_number - 1) ;
+		} else {
+			$offset = 0;
+		}
+	
+		$data['page'] = $page_number;
+		$data['page_count'] = $page_count;
+	
+		$current_company_result = $this->company_model->get_by_status_and_page($user_id, 1, PER_PAGE_RECORD, $offset);
+		$data['current_company_result'] = $current_company_result;
+	
+		$is_current = TRUE;
+		$data['is_current'] = $is_current;
+	
+		$data['action'] = 'company';
+		$this->load->view('main_view', $data);
+	}
+	
+	function history($page_number=1) {
+		$user_id = $this->session->userdata('user_id');
+		
+		// get history company count
+		$history_company_result_for_count = $this->company_model->get_by_userid_and_work_status($user_id, 0);
+		$count_record = $history_company_result_for_count->num_rows();
+		
+		$page_count = ceil($count_record / PER_PAGE_RECORD);
+		if($page_number > $page_count){
+			$page_number = $page_count;
+		}
+		// count offset
+		if($page_number > 1){
+			$offset = PER_PAGE_RECORD * ($page_number - 1) ;
+		} else {
+			$offset = 0;
+		}
+		
+		$data['page'] = $page_number;
+		$data['page_count'] = $page_count;
+		
+		$history_company_result = $this->company_model->get_by_status_and_page($user_id, 0, PER_PAGE_RECORD, $offset);
+		$data['history_company_result'] = $history_company_result;
+		
+		$is_history = TRUE;
+		$data['is_history'] = $is_history;
+		
+		$data['action'] = 'company';
+		$this->load->view('main_view', $data);
+	}
+
 	function add(){
 		$user_id = $this->session->userdata('user_id');
 		

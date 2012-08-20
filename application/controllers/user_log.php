@@ -10,7 +10,6 @@ class User_log extends CI_Controller {
 	
 	function index(){
 		$user_id = $this->session->userdata('user_id');
-		$user_id = 1;	// for testing
 		$user_log_result = $this->user_log_model->find_by_page($user_id, 1);
 		$count_record = $this->user_log_model->count_result_by_userid($user_id);
 		
@@ -26,7 +25,6 @@ class User_log extends CI_Controller {
 	
 	function page($page_number){
 		$user_id = $this->session->userdata('user_id');
-		$user_id = 1;	// for testing
 		
 		$count_record = $this->user_log_model->count_result_by_userid($user_id);
 		$page_count = ceil($count_record / PER_PAGE_RECORD);
@@ -37,10 +35,10 @@ class User_log extends CI_Controller {
 		if($page_number > 1){
 			$offset = PER_PAGE_RECORD * ($page_number - 1) ;
 		} else {
-			$offset = 1;
+			$offset = 0;
 		}
 		
-		$user_log_result = $this->user_log_model->find_by_page($user_id, $page_number, PER_PAGE_RECORD, $offset);
+		$user_log_result = $this->user_log_model->find_by_page($user_id, PER_PAGE_RECORD, $offset);
 		
 		$data['action'] = 'user_log';
 		$data['page'] = $page_number;

@@ -11,7 +11,7 @@
 <body>
 	<div class="main_box">
 		<div class="top_bottom_area_box">
-			<div class="top_area_logo"><a href="main" >返回首页</a></div>
+			<div class="top_area_logo"><a href="<?php echo PROJECT_ROOT_URL.'/main'; ?>" >返回首页</a></div>
 			<div class="top_area_title">Welcome to bx-salary-ms [beyondx-享受编程的乐趣]</div>
 			<div class="top_area_logout">
 				<?php
@@ -107,8 +107,11 @@
 						case 'edit_company' :
 							$this->load->view('edit_company_view');
 							break;
+						case 'edit_work' :
+							$this->load->view('edit_work_view');
+							break;
 						default:
-							#main
+							$this->load->view('home_view');
 							break;
 					}
 				?>

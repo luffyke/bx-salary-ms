@@ -57,8 +57,8 @@ class Company_model extends CI_Model {
 			$this->work_table_name.'.company_id = '.$this->table_name.'.id and '.$this->work_table_name.'.user_id = '.
 			$this->table_name.'.user_id', 'left');
 		$this->db->where(array($this->table_name.'.user_id' => $user_id, $this->work_table_name.'.is_current' => $is_current));
-		$current_company_result = $this->db->get();
-		return $current_company_result;
+		$company_result = $this->db->get();
+		return $company_result;
 	}
 	
 	/*
@@ -86,6 +86,25 @@ class Company_model extends CI_Model {
 		} else {
 			return FALSE;
 		}
+	}
+
+	/*
+	 * @sql = select company.id, company_name, abbr_name, company_type from company left join work on work.company_id = company.id
+	 *		and work.user_id = company.user_id where company.user_id = @user_id and work.is_current = @is_current limit @offset, @limit
+	 */
+	function get_by_status_and_page($user_id, $is_current, $limit=5, $offset=0) {
+		$this->db->select($this->table_name.'.'.$this->id);
+		$this->db->select($this->company_name);
+		$this->db->select($this->abbr_name);
+		$this->db->select($this->company_type);
+		$this->db->from($this->table_name);
+		$this->db->join($this->work_table_name, 
+			$this->work_table_name.'.company_id = '.$this->table_name.'.id and '.$this->work_table_name.'.user_id = '.
+			$this->table_name.'.user_id', 'left');
+		$this->db->where(array($this->table_name.'.user_id' => $user_id, $this->work_table_name.'.is_current' => $is_current));
+		$this->db->limit($limit, $offset);
+		$company_result = $this->db->get();
+		return $company_result;
 	}
 }
 
