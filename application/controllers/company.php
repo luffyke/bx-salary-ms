@@ -17,6 +17,11 @@ class Company extends CI_Controller {
 		$current_company_result = $this->company_model->get_by_userid_and_work_status($user_id, 1);
 		$data['current_company_result'] = $current_company_result;
 		
+		$is_current = FALSE;
+		$data['is_current'] = $is_current;
+		$is_history = FALSE;
+		$data['is_history'] = $is_history;
+		
 		$data['action'] = 'company';
 		$this->load->view('main_view', $data);
 	}
