@@ -102,20 +102,7 @@ class Company extends CI_Controller {
 		$data['action'] = 'add_company';
 		$this->load->view('main_view', $data);
 	}
-	
-	function add_action(){
-		$company_name = $this->input->post('company_name');
-		$abbr_name = $this->input->post('abbr_name');
-		$company_type = $this->input->post('company_type');
-		$user_id = $this->session->userdata('user_id');
-		$is_add_successful = $this->company_model->insert_company($user_id, $company_name, $abbr_name, $company_type);
-		if($is_add_successful){
-			echo 1;
-		} else {
-			echo 0;
-		}
-	}
-	
+
 	function edit($id) {
 		$company_result = $this->company_model->get_by_id($id);
 		
@@ -124,25 +111,39 @@ class Company extends CI_Controller {
 		$this->load->view('main_view', $data);
 	}
 	
-	function edit_action() {
-		$id = $this->input->post('id');
-		$company_name = $this->input->post('company_name');
-		$abbr_name = $this->input->post('abbr_name');
-		$company_type = $this->input->post('company_type');
-		
-		// compare with the original record in db
-		$company_result = $this->company_model->get_by_id($id);
-		$row = $company_result->first_row();
-		if($company_name == $row->company_name && $abbr_name == $row->abbr_name && $company_type == $row->company_type) {
-			echo 1;
-			return;
-		}
-		
-		$is_edit_successful = $this->company_model->update_company($id, $company_name, $abbr_name, $company_type);
-		if($is_edit_successful){
-			echo 1;
+	function amend_action() {
+		$action = $this->input->post('action');
+		if($action == 'edit_company'){
+			$id = $this->input->post('id');
+			$company_name = $this->input->post('company_name');
+			$abbr_name = $this->input->post('abbr_name');
+			$company_type = $this->input->post('company_type');
+			
+			// compare with the original record in db
+			$company_result = $this->company_model->get_by_id($id);
+			$row = $company_result->first_row();
+			if($company_name == $row->company_name && $abbr_name == $row->abbr_name && $company_type == $row->company_type) {
+				echo 1;
+				return;
+			}
+			
+			$is_edit_successful = $this->company_model->update_company($id, $company_name, $abbr_name, $company_type);
+			if($is_edit_successful){
+				echo 1;
+			} else {
+				echo 0;
+			}
 		} else {
-			echo 0;
+			$company_name = $this->input->post('company_name');
+			$abbr_name = $this->input->post('abbr_name');
+			$company_type = $this->input->post('company_type');
+			$user_id = $this->session->userdata('user_id');
+			$is_add_successful = $this->company_model->insert_company($user_id, $company_name, $abbr_name, $company_type);
+			if($is_add_successful){
+				echo 1;
+			} else {
+				echo 0;
+			}
 		}
 	}
 }

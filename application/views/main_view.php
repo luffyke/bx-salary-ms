@@ -102,12 +102,12 @@
 							$this->load->view('add_work_view');
 							break;
 						case 'add_company':
-							$this->load->view('add_company_view');
+							$this->load->view('amend_company_view');
 							break;
-						case 'edit_company' :
-							$this->load->view('edit_company_view');
+						case 'edit_company':
+							$this->load->view('amend_company_view');
 							break;
-						case 'edit_work' :
+						case 'edit_work':
 							$this->load->view('edit_work_view');
 							break;
 						default:

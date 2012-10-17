@@ -1,3 +1,12 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.table_info tr:even').css('background-color','#EAEAEA');
+	$('.table_info tr:odd').css('background-color','#FFF');
+
+	$('.history_table_info tr:even').css('background-color','#EAEAEA');
+	$('.history_table_info tr:odd').css('background-color','#FFF');
+});
+</script>
 <?php if (isset($current_company_result) && $current_company_result->num_rows() > 0) { ?>
 <div class="company">
 	<div class="title">

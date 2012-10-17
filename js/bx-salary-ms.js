@@ -47,35 +47,6 @@ function update_password(){
 	}
 }
 
-function add_company(){
-	
-	$('#add_company_message').replaceWith('');
-	
-	var company_name = $('#company_name').val();
-	if(company_name == "" || $.trim(company_name) == ""){
-		$('#company_name_message').text('公司名称不能为空');
-		return;
-	}
-	
-	var abbr_name = $('#abbr_name').val();
-	var company_type = $('#company_type').val();
-	
-	$.post('/bx-salary-ms/company/add_action',
-			{'company_name':company_name, 'abbr_name':abbr_name, 'company_type':company_type},
-			function(result){
-				if(result != 1){
-					$('#add_company_link').after('<span id="add_company_message" class="error_message">添加失败</span>');
-				} else {
-					$('#company_name_message').text('');
-					$('#company_name').val('');
-					$('#abbr_name').val('');
-					$('#company_type').val(1);
-					$('#add_company_link').after('<span id="add_company_message" class="message">添加成功</span>');
-				}
-			}
-	);
-}
-
 function add_work(){
 	
 	$('#add_work_message').replaceWith('');
@@ -208,11 +179,12 @@ function delete_company(){
 	
 }
 
-function edit_company() {
+function amend_company() {
 	
-	$('#edit_company_message').replaceWith('');
+	$('#amend_company_message').replaceWith('');
 	
 	var id = $('#company_id').val();
+	var action = $('#action').val();
 	var company_name = $('#company_name').val();
 	if(company_name == "" || $.trim(company_name) == ""){
 		$('#company_name_message').text('公司名称不能为空');
@@ -222,14 +194,14 @@ function edit_company() {
 	var abbr_name = $('#abbr_name').val();
 	var company_type = $('#company_type').val();
 	
-	$.post('/bx-salary-ms/company/edit_action',
-			{'id': id, 'company_name':company_name, 'abbr_name':abbr_name, 'company_type':company_type},
+	$.post('/bx-salary-ms/company/amend_action',
+			{'action' : action, 'id': id, 'company_name':company_name, 'abbr_name':abbr_name, 'company_type':company_type},
 			function(result){
 				if(result != 1) {
-					$('#edit_company_link').after('<span id="edit_company_message" class="error_message">修改失败</span>');
+					$('#amend_company_link').after('<span id="amend_company_message" class="error_message">操作失败</span>');
 				} else {
 					$('#company_name_message').text('');
-					$('#edit_company_link').after('<span id="edit_company_message" class="message">修改成功</span>');
+					$('#amend_company_link').after('<span id="amend_company_message" class="message">操作成功</span>');
 				}
 			}
 	);
