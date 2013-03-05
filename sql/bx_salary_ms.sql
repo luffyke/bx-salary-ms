@@ -47,8 +47,7 @@ CREATE TABLE `insurance` (
   `insurance_type` int(5) NOT NULL,
   `amount` decimal(8,2) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_insurance_amount_insurance_id` (`insurance_type`) USING BTREE,
-  KEY `fk_insurance_amount_salary_id` (`salary_id`) USING BTREE,
+  KEY `fk_insurance_salary_id` (`salary_id`) USING BTREE,
   CONSTRAINT `fk_insurance_salary_id` FOREIGN KEY (`salary_id`) REFERENCES `salary` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -140,7 +139,7 @@ CREATE TABLE `tax_calculation` (
   `min_amount` int(10) NOT NULL,
   `max_amount` int(10) NOT NULL,
   `rate` decimal(6,3) NOT NULL,
-  `base_amount` int(10) NOT NULL,
+  `deducting_amount` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tax_calculation_sequence` (`sequence`) USING BTREE,
   CONSTRAINT `fk_tax_calculation_sequence` FOREIGN KEY (`sequence`) REFERENCES `tax_basic` (`sequence`) ON UPDATE CASCADE
