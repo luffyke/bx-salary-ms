@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <title>bx-salary-ms</title>
 <link rel="stylesheet" type="text/css" href="<?php echo PROJECT_ROOT_URL.'/css/login.css'; ?>">
-<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/jquery-1.7.2.js'; ?>"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function() {
 	var is_valid = false;
 	// check if username exist
-	$('#username').blur(function(){
+	$('#username').blur(function() {
 		var username = $('#username').val();
 		$.post('<?php echo PROJECT_ROOT_URL.'/user/ajax_check_username'; ?>',
 				{'username':username},
-				function(result){
+				function (result) {
 					$('#username_message').replaceWith('');
-					if(result){
+					if (result) {
 						$('#username').after('<div id="username_message" class="error_message">' +
 								'<p>用户名已存在</p></div>');
 						is_valid = false;
@@ -27,9 +27,9 @@ $(document).ready(function(){
 	});
 	
 	// check if two password eqaul
-	$('#re_password').blur(function(){
+	$('#re_password').blur(function() {
 		$('#password_message').replaceWith('');
-		if($('#re_password').val() != $('#password').val()){
+		if ($('#re_password').val() != $('#password').val()) {
 			$('#re_password').after('<div id="password_message" class="error_message">' +
 					'<p>两次密码输入不同</p></div>');
 			is_valid = false;
@@ -38,7 +38,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('#reg_button').click(function(){
+	$('#reg_button').click(function() {
 		return is_valid ? true : false;
 	});
 });

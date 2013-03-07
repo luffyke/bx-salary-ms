@@ -10,9 +10,9 @@
 	$day = substr($birthdate, 8, 2);
 	
 	// calculate age
-	$now = date_create("now");
+	$now = date_create('now');
 	$birth = date_create($birthdate);
-	if($now < $birth){
+	if ($now < $birth) {
 		$age = '你还没出生呢';
 	} else {
 		$interval = date_diff($now, $birth);
@@ -28,10 +28,11 @@
 	$email = $user['email'];
 	$create_date = $user['create_date'];
 ?>
-<script type="text/javascript" src="/bx-salary-ms/js/jquery.provinces_city_county.js"></script>
-<script type="text/javascript" src="/bx-salary-ms/js/jquery.date.js"></script>
+<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/jquery.provinces_city_county.js'?>"></script>
+<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/jquery.date.js'?>"></script>
+<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/profile.js'?>"></script>
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function() {
 	var hidden_province = $('#hidden_province').val();
 	var hidden_city = $('#hidden_city').val();
 	var hidden_county = $('#hidden_county').val();
@@ -51,9 +52,10 @@ $(document).ready(function(){
 	<input type="hidden" id="hidden_year" name="hidden_year" value="<?php echo $year;?>"/>
 	<input type="hidden" id="hidden_month" name="hidden_month" value="<?php echo $month;?>"/>
 	<input type="hidden" id="hidden_day" name="hidden_day" value="<?php echo $day;?>"/>
+	<div class="title">修改个人资料</div>
 	<table>
 		<tbody>
-			<tr><th>注册时间:</th><td><? echo $create_date ?></td></tr>
+			<tr><th>注册:</th><td><? echo $create_date ?></td></tr>
 			<tr><th>用户名:</th><td><? echo $username ?> (<?php echo $age;?>)</td></tr>
 			<tr>
 				<th>姓名:</th>

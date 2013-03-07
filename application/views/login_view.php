@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>bx-salary-ms</title>
 <link rel="stylesheet" type="text/css" href="<?php echo PROJECT_ROOT_URL.'/css/login.css'; ?>">
-<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/jquery-1.7.2.js'; ?>"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -34,7 +34,7 @@
 				<div class="login_box_buttons">
 					<input id="remember_me" type="checkbox" name="remember_me" 
 					<?php 
-						if($this->input->cookie('remember_me')) :
+						if ($this->input->cookie('remember_me')) :
 							echo "checked='true'";
 						endif
 					?>/>

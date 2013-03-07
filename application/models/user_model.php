@@ -64,7 +64,7 @@ class User_model extends CI_Model{
 	/*
 	 * @sql = update user set email = @email where user_id = @user_id
 	 */
-	function update_email($user_id, $email){
+	function update_email($user_id, $email) {
 		$this->db->where($this->id, $user_id);
 		$this->db->update($this->table_name, array($this->email=>$email));
 		return TRUE;
@@ -73,7 +73,7 @@ class User_model extends CI_Model{
 	/*
 	 * @sql = update user set password = @password where user_id = @user_id
 	 */
-	function update_password($user_id, $password){
+	function update_password($user_id, $password) {
 		$this->db->where('id', $user_id);
 		$this->db->update($this->table_name, array($this->password=>$password));
 		return TRUE;

@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 class User extends CI_Controller {
 
 	function __construct() {
@@ -15,7 +14,7 @@ class User extends CI_Controller {
 	function login() {
 		if($this->input->cookie('remember_me')) {
 			$user_id = $this->session->userdata('user_id');
-			if(empty($user_id)) {
+			if (empty($user_id)) {
 				$this->load->view('login_view');
 			} else {
 				$data['action'] = 'main';
@@ -30,13 +29,13 @@ class User extends CI_Controller {
 		// get username and password from post data
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		if(!$this->is_sha1($password)) {
+		if (!$this->is_sha1($password)) {
 			// sha1 the password for validation
 			$password = $this->sha1_password($password);
 		}
 		// validation
 		$user_result = $this->user_model->get_by_username_and_password($username, $password);
-		if($user_result->num_rows() > 0) {
+		if ($user_result->num_rows() > 0) {
 			// log user login
 			$user_id = $user_result->row()->id;
 			$this->load->model('user_log_model');
@@ -48,8 +47,8 @@ class User extends CI_Controller {
 			
 			// cookie the username and password
 			$remember_me = $this->input->post('remember_me');
-			if($remember_me) {
-				$expire_time = 86500;
+			if ($remember_me) {
+				$expire_time = 60*60*24*365*2;
 				//$this->input->set_cookie('username', $username, $expire_time);
 				//$this->input->set_cookie('password', $password, $expire_time);
 				$this->input->set_cookie('remember_me', TRUE, $expire_time);

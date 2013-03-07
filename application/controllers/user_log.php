@@ -1,16 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class User_log extends CI_Controller {
 	
-	function __construct(){
+	function __construct() {
 		parent::__construct();
 		$this->load->model('user_log_model');
 		// define per page record
 		define('PER_PAGE_RECORD', 15);
 	}
 	
-	function index(){
+	function index() {
 		$user_id = $this->session->userdata('user_id');
-		$user_log_result = $this->user_log_model->find_by_page($user_id, 1);
+		$user_log_result = $this->user_log_model->find_by_page($user_id, PER_PAGE_RECORD, 0);
 		$count_record = $this->user_log_model->count_result_by_userid($user_id);
 		
 		$page_count = ceil($count_record / PER_PAGE_RECORD);
@@ -23,12 +24,12 @@ class User_log extends CI_Controller {
 		$this->load->view('main_view', $data);
 	}
 	
-	function page($page_number){
+	function page($page_number) {
 		$user_id = $this->session->userdata('user_id');
 		
 		$count_record = $this->user_log_model->count_result_by_userid($user_id);
 		$page_count = ceil($count_record / PER_PAGE_RECORD);
-		if($page_number > $page_count){
+		if ($page_number > $page_count) {
 			$page_number = $page_count;
 		}
 		// count offset

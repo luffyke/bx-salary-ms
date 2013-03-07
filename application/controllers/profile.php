@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Profile extends CI_Controller {
 	
 	function __construct() {
@@ -14,7 +14,7 @@ class Profile extends CI_Controller {
 		// profile details
 		$profile_result = $this->profile_model->get_profile_by_userid($user_id);
 		$profile_row = $profile_result->row();
-		if($profile_row != null) {
+		if ($profile_row != null) {
 			$first_name = $profile_row->first_name;
 			$last_name = $profile_row->last_name;
 			$birthdate = $profile_row->birthdate;
@@ -42,7 +42,7 @@ class Profile extends CI_Controller {
 		$this->load->view('main_view' , $data);
 	}
 	
-	function update_profile(){
+	function update_profile() {
 		$user_id = $this->session->userdata('user_id');
 		
 		// begin transaction
@@ -67,7 +67,7 @@ class Profile extends CI_Controller {
 		// complete transaction
 		$this->db->trans_complete();
 		
-		if ($this->db->trans_status() === FALSE){
+		if ($this->db->trans_status() === FALSE) {
 			log_message('error', 'Update profile error');
 			echo FALSE;
 		} else {

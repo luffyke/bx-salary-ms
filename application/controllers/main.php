@@ -2,14 +2,14 @@
 
 class Main extends CI_Controller{
 	
-	function __construct(){
+	function __construct() {
 		parent::__construct();
 		$this->load->model('user_model');
 		$this->load->model('profile_model');
 		//$this->output->enable_profiler(TRUE);		// for testing
 	}
 	
-	function index(){
+	function index() {
 		$data['action'] = 'main';
 		$this->load->view('main_view', $data);
 	}

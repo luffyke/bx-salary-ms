@@ -35,7 +35,7 @@ class User_log_model extends CI_Model{
 	/*
 	 * @sql = select count(*) from user_log where user_id = @user_id
 	 */
-	function count_result_by_userid($user_id){
+	function count_result_by_userid($user_id) {
 		$this->db->where($this->user_id, $user_id);
 		$this->db->from($this->table_name);
 		return $this->db->count_all_results();
@@ -44,7 +44,7 @@ class User_log_model extends CI_Model{
 	/*
 	 * @sql = select * from user_log where user_id = @user_id limit @offset, @limit
 	 */
-	function find_by_page($user_id, $limit=15, $offset=0){
+	function find_by_page($user_id, $limit=15, $offset=0) {
 		$result = $this->db->get_where($this->table_name, array($this->user_id=>$user_id), $limit, $offset);
 		return $result;
 	}

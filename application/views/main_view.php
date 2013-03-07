@@ -4,19 +4,18 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="<?php echo PROJECT_ROOT_URL.'/css/main.css'; ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo PROJECT_ROOT_URL.'/css/button.css'; ?>">
-<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/jquery-1.7.2.js'; ?>"></script>
-<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/bx-salary-ms.js'; ?>"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <title>bx-salary-ms</title>
 </head>
 <body>
 	<div class="main_box">
 		<div class="top_bottom_area_box">
-			<div class="top_area_logo"><a href="<?php echo PROJECT_ROOT_URL.'/main'; ?>" >返回首页</a></div>
+			<div class="top_area_goto_home"><a href="<?php echo PROJECT_ROOT_URL.'/main'; ?>" >返回首页</a></div>
 			<div class="top_area_title">Welcome to bx-salary-ms [beyondx-享受编程的乐趣]</div>
 			<div class="top_area_logout">
 				<?php
 					$user_id = $this->session->userdata('user_id');
-					if($user_id != '') : 
+					if ($user_id != '') : 
 				?>
 				管理员:
 				<?php echo $this->session->userdata('username'); ?> [ <a href="<?php echo PROJECT_ROOT_URL.'/user/logout'; ?>">退出</a> ]
@@ -50,8 +49,14 @@
 						<li class="caption">
 							<strong>工作经历管理</strong>
 							<ol>
-								<li><a href="<?php echo PROJECT_ROOT_URL.'/work'; ?>">工作经历</a></li>
-								<li><a href="<?php echo PROJECT_ROOT_URL.'/company'; ?>">公司信息</a></li>
+								<li>
+									<a href="<?php echo PROJECT_ROOT_URL.'/work'; ?>">工作经历</a>
+									<a href="<?php echo PROJECT_ROOT_URL.'/work/add'; ?>">添加</a>
+								</li>
+								<li>
+									<a href="<?php echo PROJECT_ROOT_URL.'/company'; ?>">公司信息</a>
+									<a href="<?php echo PROJECT_ROOT_URL.'/company/add'; ?>">添加</a>
+								</li>
 							</ol>
 						</li>
 					</ul>
@@ -99,16 +104,16 @@
 							$this->load->view('change_password_view');
 							break;
 						case 'add_work':
-							$this->load->view('add_work_view');
+							$this->load->view('amend_work_view');
+							break;
+						case 'edit_work':
+							$this->load->view('amend_work_view');
 							break;
 						case 'add_company':
 							$this->load->view('amend_company_view');
 							break;
 						case 'edit_company':
 							$this->load->view('amend_company_view');
-							break;
-						case 'edit_work':
-							$this->load->view('edit_work_view');
 							break;
 						default:
 							$this->load->view('home_view');
@@ -119,7 +124,7 @@
 		</div>
 		<div class="clear"></div>
 		<div class="top_bottom_area_box">
-			<div class="copyright">© bx-salary-ms 2012 by kxt(luffyke@gmail.com)</div>
+			<div class="copyright">© bx-salary-ms 2012-2013 by kxt(luffyke@gmail.com)</div>
 		</div>
 	</div>
 </body>
