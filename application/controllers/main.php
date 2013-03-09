@@ -4,12 +4,22 @@ class Main extends CI_Controller{
 	
 	function __construct() {
 		parent::__construct();
-		$this->load->model('user_model');
 		$this->load->model('profile_model');
+		$this->load->model('work_model');
 		//$this->output->enable_profiler(TRUE);		// for testing
 	}
 	
 	function index() {
+		$user_id = $this->session->userdata('user_id');
+
+		// profile result
+		$profile_result = $this->profile_model->get_profile_by_userid($user_id);
+
+		// work result
+		$work_result = $this->work_model->get_by_userid_and_work_status($user_id, 1);
+
+		$data['profile_result'] = $profile_result;
+		$data['work_result'] = $work_result;
 		$data['action'] = 'main';
 		$this->load->view('main_view', $data);
 	}
