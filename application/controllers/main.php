@@ -6,7 +6,6 @@ class Main extends CI_Controller{
 		parent::__construct();
 		$this->load->model('profile_model');
 		$this->load->model('work_model');
-		//$this->output->enable_profiler(TRUE);		// for testing
 	}
 	
 	function index() {
@@ -15,7 +14,7 @@ class Main extends CI_Controller{
 		// profile result
 		$profile_result = $this->profile_model->get_profile_by_userid($user_id);
 
-		// work result
+		// current work result
 		$work_result = $this->work_model->get_by_userid_and_work_status($user_id, 1);
 
 		$data['profile_result'] = $profile_result;

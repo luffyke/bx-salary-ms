@@ -27,7 +27,7 @@
 					if ($to_date == "0000-00-00") {
 						$to_date = '至今';
 					}
-				echo $row->from_date . ' - ' . $to_date;
+					echo $row->from_date . ' - ' . $to_date;
 				?>
 			</td>
 			<td><?php echo $row->company_name; ?></td>

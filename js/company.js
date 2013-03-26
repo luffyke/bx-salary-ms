@@ -40,6 +40,7 @@ function amend_company() {
 			} else {
 				$('#company_name_message').text('');
 				$('#amend_company_link').after('<span id="amend_company_message" class="message">操作成功</span>');
+				window.location.href = "/bx-salary-ms/company";
 			}
 		}
 	);

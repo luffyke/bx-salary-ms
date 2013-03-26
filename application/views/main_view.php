@@ -10,7 +10,7 @@
 <body>
 	<div class="main_box">
 		<div class="top_bottom_area_box">
-			<div class="top_area_goto_home"><a href="<?php echo PROJECT_ROOT_URL.'/main'; ?>" >返回首页</a></div>
+			<div class="top_area_goto_home"><a href="<?php echo PROJECT_ROOT_URL.'/main'; ?>" >首页</a></div>
 			<div class="top_area_title">Welcome to bx-salary-ms [beyondx-享受编程的乐趣]</div>
 			<div class="top_area_logout">
 				<?php
@@ -41,7 +41,10 @@
 						<li class="caption">
 							<strong>工资信息管理</strong>
 							<ol>
-								<li><a href="<?php echo PROJECT_ROOT_URL.'/salary'; ?>">工资记录</a></li>
+								<li>
+									<a href="<?php echo PROJECT_ROOT_URL.'/salary'; ?>">工资记录</a>
+									<a href="<?php echo PROJECT_ROOT_URL.'/salary/add'; ?>">添加</a>
+								</li>
 							</ol>
 						</li>
 					</ul>
@@ -114,6 +117,12 @@
 							break;
 						case 'edit_company':
 							$this->load->view('amend_company_view');
+							break;
+						case 'add_salary':
+							$this->load->view('amend_salary_view');
+							break;
+						case 'edit_salary':
+							$this->load->view('amend_salary_view');
 							break;
 						default:
 							$this->load->view('home_view');

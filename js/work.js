@@ -119,6 +119,7 @@ function amend_work() {
 				$('#from_date_message').text('');
 				$('#to_date_message').text('');
 				$('#amend_work_link').after('<span id="amend_work_message" class="message">操作成功</span>');
+				window.location.href = "/bx-salary-ms/work";
 			}
 		}
 	);
