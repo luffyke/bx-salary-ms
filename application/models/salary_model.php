@@ -53,7 +53,7 @@ class Salary_model extends CI_Model {
 		$salary_data = array($this->company_id=>$company_id, $this->basic=>$basic, $this->allowance=>$allowance,
 			$this->income_tax=>$income_tax, $this->non_income_tax=>$non_income_tax, $this->credit_amount=>$credit_amount,
 			$this->insurance_indicator=>$insurance_indicator, $this->payment_date=>$payment_date);
-		$this->db->where('id', $id);
+		$this->db->where($this->id, $id);
 		$this->db->update($this->table_name, $salary_data);
 		if ($this->db->affected_rows() == 1) {
 			return TRUE;
