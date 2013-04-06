@@ -11,7 +11,7 @@ class Salary_history_model extends CI_Model {
 	private $id = 'id';
 	private $company_id = 'company_id';
 	private $basic = 'basic';
-	private $allowance 'allowance';
+	private $allowance = 'allowance';
 	private $change_date = 'change_date';
 	
 	function __construct() {
@@ -30,7 +30,7 @@ class Salary_history_model extends CI_Model {
 	}
 	
 	function insert_salary_history($company_id, $basic, $allowance, $change_date) {
-		$salary_history_data = array($this->company_id=>$company_id, $this->allowance=>$allowance, $this=>change_date=>$change_date);
+		$salary_history_data = array($this->company_id=>$company_id, $this->allowance=>$allowance, $this->change_date=>$change_date);
 		$this->db->insert($this->table_name, $salary_history_data);
 		if ($this->db->affected_rows() == 1) {
 			return TRUE;
@@ -40,7 +40,7 @@ class Salary_history_model extends CI_Model {
 	}
 	
 	function update_salary_history($id, $company_id, $basic, $allowance, $change_date) {
-		$salary_history_data = array($this->company_id=>$company_id, $this->allowance=>$allowance, $this=>change_date=>$change_date);
+		$salary_history_data = array($this->company_id=>$company_id, $this->allowance=>$allowance, $this->change_date=>$change_date);
 		$this->db->where($this->id, $id);
 		$this->db->update($this->table_name, $salary_history_data);
 		if ($this->db->affected_rows() == 1) {
