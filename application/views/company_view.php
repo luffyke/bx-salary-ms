@@ -14,10 +14,10 @@
 	</div>
 	<table class="table_info">
 		<tr style="font-weight:bold;">
-			<td width="50%">公司名称</td>
-			<td width="30%">公司简称</td>
-			<td width="10%">公司性质</td>
-			<td width="10%">操作</td>
+			<td width="45%">公司名称</td>
+			<td width="25%">公司简称</td>
+			<td width="15%">公司性质</td>
+			<td width="15%">操作</td>
 		</tr>
 		<?php $i = 0; ?>
 		<?php foreach ($current_company_result->result() as $row) { ?>
@@ -93,10 +93,10 @@
 	</div>
 	<table class="history_table_info">
 		<tr style="font-weight:bold;">
-			<td width="50%">公司名称</td>
-			<td width="30%">公司简称</td>
-			<td width="10%">公司性质</td>
-			<td width="10%">操作</td>
+			<td width="45%">公司名称</td>
+			<td width="25%">公司简称</td>
+			<td width="15%">公司性质</td>
+			<td width="15%">操作</td>
 		</tr>
 
 		<?php $j = 0; ?>
@@ -157,3 +157,4 @@
 <?php } elseif ((isset($is_current) && !$is_current) || !isset($is_current)) { ?>
 <div class="tip">无历史公司信息</div>
 <?php } ?>
+<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/jquery.hover.js'; ?>"></script>

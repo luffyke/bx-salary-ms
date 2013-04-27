@@ -25,9 +25,9 @@
 				<?php 
 					$to_date = $row->to_date;
 					if ($to_date == "0000-00-00") {
-						$to_date = '至今';
+						$to_date = 'now';
 					}
-					echo $row->from_date . ' - ' . $to_date;
+					echo $row->from_date . ' until ' . $to_date;
 				?>
 			</td>
 			<td><?php echo $row->company_name; ?></td>
@@ -81,7 +81,7 @@
 					if ($to_date == "0000-00-00") {
 						$to_date = '至今';
 					}
-					echo $row->from_date . ' - ' . $to_date;
+					echo $row->from_date . ' until ' . $to_date;
 				?>
 			</td>
 			<td><?php echo $row->company_name; ?></td>
@@ -113,3 +113,4 @@
 	<div class="tip">无历史工作经历记录</div>
 	<?php } ?>
 </div>
+<script type="text/javascript" src="<?php echo PROJECT_ROOT_URL.'/js/jquery.hover.js'; ?>"></script>

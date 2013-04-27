@@ -2,17 +2,16 @@
 $(document).ready(function() {
 	$('.odd_even_table tr:even').css('background-color','#EAEAEA');
 	$('.odd_even_table tr:odd').css('background-color','#FFF');
-	$('.odd_even_table').css('font-size','16px');
 });
 </script>
 <div class="user_log">
-	<table class="odd_even_table">
+	<table class="odd_even_table" cellpadding="5px" cellspacing="5px">
 		<?php foreach ($user_log_result->result() as $row) { ?>
 		<tr>
-			<td><?php echo $row->log_date; ?></td>
+			<td width="35%"><?php echo $row->log_date; ?></td>
 			<td>
 				<?php
-					echo "<span style='margin-left:10px; font: bold 13px sans-serif'>"; 
+					echo "<span style='letter-spacing : 3px'>"; 
 					$log_type = $row->log_type;
 					if ($log_type == 1) {
 						echo '登录系统';

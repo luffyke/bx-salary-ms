@@ -136,8 +136,8 @@ DROP TABLE IF EXISTS `tax_calculation`;
 CREATE TABLE `tax_calculation` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `sequence` int(2) NOT NULL,
-  `min_amount` int(10) NOT NULL,
-  `max_amount` int(10) NOT NULL,
+  `from_amount` int(10) NOT NULL,
+  `to_amount` int(10) NOT NULL,
   `rate` decimal(6,3) NOT NULL,
   `deducting_amount` int(10) NOT NULL,
   PRIMARY KEY (`id`),
