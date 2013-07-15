@@ -34,6 +34,7 @@
 							<ol>
 								<li><a href="<?php echo PROJECT_ROOT_URL.'/profile'?>">个人资料</a></li>
 								<li><a href="<?php echo PROJECT_ROOT_URL.'/user/change_password'; ?>">修改密码</a></li>
+								<li><a href="<?php echo PROJECT_ROOT_URL.'/resume'; ?>">我的简历</a></li>
 							</ol>
 						</li>
 					</ul>
