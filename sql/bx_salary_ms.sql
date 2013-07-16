@@ -72,11 +72,39 @@ CREATE TABLE `insurance_rate` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `resume`
+-- ----------------------------
+DROP TABLE IF EXISTS `resume`;
+CREATE TABLE `resume` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `user_id` int(5) NOT NULL,
+  `university` varchar(64) DEFAULT NULL,
+  `graduation_year` int(4) DEFAULT NULL,
+  `specialty` varchar(64) DEFAULT NULL,
+  `phone` int(11) DEFAULT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `blog` varchar(255) DEFAULT NULL,
+  `english` varchar(255) DEFAULT NULL,
+  `hobby` varchar(255) DEFAULT NULL,
+  `skill` text,
+  `experience` text,
+  `project` text,
+  PRIMARY KEY (`id`),
+  KEY `resume_user_id` (`user_id`),
+  CONSTRAINT `resume_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of resume
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `salary`
 -- ----------------------------
 DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(5) NOT NULL,
   `company_id` int(5) NOT NULL,
   `year_month` varchar(6) NOT NULL,
   `basic` decimal(8,2) NOT NULL,
@@ -88,7 +116,9 @@ CREATE TABLE `salary` (
   `payment_date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_salary_company_id` (`company_id`) USING BTREE,
-  CONSTRAINT `fk_salary_company_id` FOREIGN KEY (`company_id`) REFERENCES `work` (`id`) ON UPDATE CASCADE
+  KEY `fk_salary_user_id` (`user_id`),
+  CONSTRAINT `fk_salary_company_id` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_salary_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
