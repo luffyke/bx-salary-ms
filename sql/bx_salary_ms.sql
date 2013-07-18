@@ -38,6 +38,26 @@ CREATE TABLE `company_ins_rate` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `consume`
+-- ----------------------------
+DROP TABLE IF EXISTS `consume`;
+CREATE TABLE `consume` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(5) NOT NULL,
+  `date` date NOT NULL,
+  `breakfast` double(5,1) DEFAULT NULL,
+  `lunch` double(5,1) DEFAULT NULL,
+  `dinner` double(5,1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `consume_user_id` (`user_id`),
+  CONSTRAINT `consume_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of consume
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `insurance`
 -- ----------------------------
 DROP TABLE IF EXISTS `insurance`;
@@ -69,6 +89,42 @@ CREATE TABLE `insurance_rate` (
 
 -- ----------------------------
 -- Records of insurance_rate
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `location`
+-- ----------------------------
+DROP TABLE IF EXISTS `location`;
+CREATE TABLE `location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(5) NOT NULL,
+  `date` date NOT NULL,
+  `location` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `location_user_id` (`user_id`),
+  CONSTRAINT `location_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of location
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `other_consume`
+-- ----------------------------
+DROP TABLE IF EXISTS `other_consume`;
+CREATE TABLE `other_consume` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `consume_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `other_consume_consumeid` (`consume_id`),
+  CONSTRAINT `other_consume_consumeid` FOREIGN KEY (`consume_id`) REFERENCES `consume` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of other_consume
 -- ----------------------------
 
 -- ----------------------------
