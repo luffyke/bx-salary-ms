@@ -38,8 +38,8 @@ class User extends CI_Controller {
 		if ($user_result->num_rows() > 0) {
 			// log user login
 			$user_id = $user_result->row()->id;
-			$this->load->model('user_log_model');
-			$this->user_log_model->insert_user_log($user_id, $this->user_log_model->login);
+			//$this->load->model('user_log_model');
+			//$this->user_log_model->insert_user_log($user_id, $this->user_log_model->login);
 			
 			// session user id and username
 			$session_data = array('user_id' => $user_id, 'username' => $username);
