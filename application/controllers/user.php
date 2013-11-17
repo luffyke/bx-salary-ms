@@ -12,7 +12,7 @@ class User extends CI_Controller {
 	}
 	
 	function login() {
-		if($this->input->cookie('remember_me')) {
+		if ($this->input->cookie('remember_me')) {
 			$user_id = $this->session->userdata('user_id');
 			if (empty($user_id)) {
 				$this->load->view('login_view');
