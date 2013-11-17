@@ -1,0 +1,27 @@
+# eclipse settings
+.buildpath
+.project
+/.settings
+
+# sublime tags
+.tags
+.tags_sorted_by_file
+
+# CI source file
+/system
+/user_guide
+/application/cache
+/application/errors
+/application/logs
+/application/.htaccess
+/application/config/config.php
+/application/config/constants.php
+/application/config/database.php
+/application/config/doctypes.php
+/application/config/foreign_chars.php
+/application/config/migration.php
+/application/config/mimes.php
+/application/config/profiler.php
+/application/config/routes.php
+/application/config/smileys.php
+/application/config/user_agents.php
